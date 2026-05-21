@@ -32,12 +32,12 @@ The ALU will interact with the PS as an AXI slave
 1. Create a new Vivado project targeting the AUP-ZU3
 	1. This guide is written with VHDL, so to follow along make sure to set the target language of your project to VHDL
 2. Create an IP with Vivado's create and package new IP wizard
-	1. ![tools-createip](Tools-CreateIP.png)
-	2. ![createip](createip.png)
-	3. ![defineip](defineip.png)
-	4. ![editip](editip.png)
+	1. ![tools-createip](images/Tools-CreateIP.png)
+	2. ![createip](images/createip.png)
+	3. ![defineip](images/defineip.png)
+	4. ![editip](images/editip.png)
 3. Open the auto-generated HDL file shown below
-	1.![vhdlfile](vhdlfile.png) 
+	1. ![vhdlfile](images/vhdlfile.png) 
 4. Comment out any lines that modify slave register 3, the result register, to ensure that it is read only
 	1. Line 216: `slv_reg3 <= (others => '0');`
 	2. Line 249: `slv_reg3(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);`
@@ -92,19 +92,19 @@ The ALU will interact with the PS as an AXI slave
 1. Before packaging the IP for integration in the block design, add descriptions of the 4 registers to the Addressing and Memory page of the IP packaging wizard.
 	- This is important because this will be included in the hardware handoff (.hwh) file that will then be read by the Python API
 2. Right click on the AXI interface and click `Add Register` once for each register in the design
-	1. ![addregister](addregister.png)
+	1. ![addregister](images/addregister.png)
 3. Add names, descriptions, and crucially **Address Offsets** to the registers
 	1. Each register is 32 bits, or 4 bytes, so the addresses should be 4 addresses apart!
-		1. ![memmap](memorymap.png)
+		1. ![memmap](images/memorymap.png)
 4. Package the IP
-	1. ![packageip](packageip.png)
+	1. ![packageip](images/packageip.png)
 ## 1.2 Creating The Block Design
 1. When you close the project for the ALU IP, it should drop you back into the project you created at the beginning
 2. Create a new block design
 3. Add a  ZYNQ Ultrascale+ MPSoC IP Block, and the ALU IP
 4. Run the block automation and the connection automation with default settings
 5. After regenerating the layout, the final block design should look like this
-	1. ![blockdesign](blockdesign.png)
+	1. ![blockdesign](images/blockdesign.png)
 ## 1.3 Generating The Overlay Files
 1. Create the HDL wrapper, generate the bitstream, and export the hardware as an XSA file
 	1. Ensure the XSA file includes the bitstream
@@ -126,7 +126,7 @@ You can now instantiate PYNQ's built-in Overlay class using the XSA file you jus
 	1. Or the IP of your board
 2. The password is xilinx
 3. Create a new notebook
-	1. ![newnotebook](newnotebook.png)
+	1. ![newnotebook](images/newnotebook.png)
 4. Import the Overlay module and instantiate a new Overlay, pointing its constructor to the XSA you copied onto the device
 5. Use the `help` function to see what IP cores are included in the overlay
 ```python
